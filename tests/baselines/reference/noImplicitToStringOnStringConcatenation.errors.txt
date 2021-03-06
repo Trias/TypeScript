@@ -1,0 +1,43 @@
+tests/cases/compiler/noImplicitToStringOnStringConcatenation.ts(3,14): error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+tests/cases/compiler/noImplicitToStringOnStringConcatenation.ts(4,9): error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+tests/cases/compiler/noImplicitToStringOnStringConcatenation.ts(5,15): error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+tests/cases/compiler/noImplicitToStringOnStringConcatenation.ts(6,9): error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+tests/cases/compiler/noImplicitToStringOnStringConcatenation.ts(7,9): error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+tests/cases/compiler/noImplicitToStringOnStringConcatenation.ts(8,9): error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+tests/cases/compiler/noImplicitToStringOnStringConcatenation.ts(9,9): error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+tests/cases/compiler/noImplicitToStringOnStringConcatenation.ts(11,9): error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+
+
+==== tests/cases/compiler/noImplicitToStringOnStringConcatenation.ts (8 errors) ====
+    function empty(){}
+    
+    let a = "" + 0;
+                 ~
+!!! error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+    let b = {} + "";
+            ~~
+!!! error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+    let c = "a" + + "";
+                  ~~~~
+!!! error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+    let d = false + "";
+            ~~~~~
+!!! error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+    let e = null + "";
+            ~~~~
+!!! error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+    let f = undefined + "";
+            ~~~~~~~~~
+!!! error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+    let g = empty() + "";
+            ~~~~~~~
+!!! error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+    // also an error
+    let h = { toString(){return "fooo";} } + "";
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+!!! error TS18036: Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.
+    
+    // not an error
+    let i = String({}) + "";
+    let j = ({}).toString() + "";
+    let k = ({} as any) + "";

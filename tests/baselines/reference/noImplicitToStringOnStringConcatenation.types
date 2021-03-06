@@ -1,0 +1,84 @@
+=== tests/cases/compiler/noImplicitToStringOnStringConcatenation.ts ===
+function empty(){}
+>empty : () => void
+
+let a = "" + 0;
+>a : string
+>"" + 0 : string
+>"" : ""
+>0 : 0
+
+let b = {} + "";
+>b : string
+>{} + "" : string
+>{} : {}
+>"" : ""
+
+let c = "a" + + "";
+>c : string
+>"a" + + "" : string
+>"a" : "a"
+>+ "" : number
+>"" : ""
+
+let d = false + "";
+>d : string
+>false + "" : string
+>false : false
+>"" : ""
+
+let e = null + "";
+>e : string
+>null + "" : string
+>null : null
+>"" : ""
+
+let f = undefined + "";
+>f : string
+>undefined + "" : string
+>undefined : undefined
+>"" : ""
+
+let g = empty() + "";
+>g : string
+>empty() + "" : string
+>empty() : void
+>empty : () => void
+>"" : ""
+
+// also an error
+let h = { toString(){return "fooo";} } + "";
+>h : string
+>{ toString(){return "fooo";} } + "" : string
+>{ toString(){return "fooo";} } : { toString(): string; }
+>toString : () => string
+>"fooo" : "fooo"
+>"" : ""
+
+// not an error
+let i = String({}) + "";
+>i : string
+>String({}) + "" : string
+>String({}) : string
+>String : StringConstructor
+>{} : {}
+>"" : ""
+
+let j = ({}).toString() + "";
+>j : string
+>({}).toString() + "" : string
+>({}).toString() : string
+>({}).toString : () => string
+>({}) : {}
+>{} : {}
+>toString : () => string
+>"" : ""
+
+let k = ({} as any) + "";
+>k : string
+>({} as any) + "" : string
+>({} as any) : any
+>{} as any : any
+>{} : {}
+>"" : ""
+

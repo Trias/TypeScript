@@ -5890,6 +5890,7 @@ namespace ts {
         noLib?: boolean;
         noResolve?: boolean;
         noUncheckedIndexedAccess?: boolean;
+        noImplicitToString?: boolean;
         out?: string;
         outDir?: string;
         outFile?: string;

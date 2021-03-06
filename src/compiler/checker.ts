@@ -31241,6 +31241,17 @@ namespace ts {
                         resultType = bigintType;
                     }
                     else if (isTypeAssignableToKind(leftType, TypeFlags.StringLike, /*strict*/ true) || isTypeAssignableToKind(rightType, TypeFlags.StringLike, /*strict*/ true)) {
+                        if (compilerOptions.noImplicitToString) {
+                            const leftOk = isTypeAssignableToKind(leftType, TypeFlags.StringLike, /*strict*/ true) || isTypeAny(leftType);
+                            const rightOk = isTypeAssignableToKind(rightType, TypeFlags.StringLike, /*strict*/ true) || isTypeAny(rightType);
+                            if (!leftOk && rightOk) {
+                                error(left, Diagnostics.Implicit_conversion_to_string_may_be_unintended_Consider_wrapping_this_expression_in_String);
+                            }
+                            else if (leftOk && !rightOk) {
+                                error(right, Diagnostics.Implicit_conversion_to_string_may_be_unintended_Consider_wrapping_this_expression_in_String);
+                            }
+                        }
+
                         // If one or both operands are of the String primitive type, the result is of the String primitive type.
                         resultType = stringType;
                     }
@@ -31614,6 +31625,11 @@ namespace ts {
                 const type = checkExpression(span.expression);
                 if (maybeTypeOfKind(type, TypeFlags.ESSymbolLike)) {
                     error(span.expression, Diagnostics.Implicit_conversion_of_a_symbol_to_a_string_will_fail_at_runtime_Consider_wrapping_this_expression_in_String);
+                }
+                if (compilerOptions.noImplicitToString) {
+                    if (maybeTypeOfKind(type, TypeFlags.Object | TypeFlags.Nullable)) {
+                        error(span.expression, Diagnostics.Implicit_conversion_of_type_0_to_a_string_may_be_unintended_Consider_wrapping_this_expression_in_String, typeToString(type));
+                    }
                 }
                 texts.push(span.literal.text);
                 types.push(isTypeAssignableTo(type, templateConstraintType) ? type : stringType);

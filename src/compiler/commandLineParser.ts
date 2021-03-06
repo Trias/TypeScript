@@ -671,6 +671,14 @@ namespace ts {
             description: Diagnostics.Include_undefined_in_index_signature_results
         },
         {
+            name: "noImplicitToString",
+            type: "boolean",
+            affectsSemanticDiagnostics: true,
+            showInSimplifiedHelpView: false,
+            category: Diagnostics.Additional_Checks,
+            description: Diagnostics.Disallow_implicit_toString_casts_in_string_concatenation_and_template_strings
+        },
+        {
             name: "noPropertyAccessFromIndexSignature",
             type: "boolean",
             showInSimplifiedHelpView: false,

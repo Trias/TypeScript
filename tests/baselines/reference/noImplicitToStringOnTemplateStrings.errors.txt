@@ -1,0 +1,31 @@
+tests/cases/compiler/noImplicitToStringOnTemplateStrings.ts(3,12): error TS18037: Implicit conversion of type '{}' to a string may be unintended. Consider wrapping this expression in 'String(...)'.
+tests/cases/compiler/noImplicitToStringOnTemplateStrings.ts(4,12): error TS18037: Implicit conversion of type 'null' to a string may be unintended. Consider wrapping this expression in 'String(...)'.
+tests/cases/compiler/noImplicitToStringOnTemplateStrings.ts(5,12): error TS18037: Implicit conversion of type 'undefined' to a string may be unintended. Consider wrapping this expression in 'String(...)'.
+tests/cases/compiler/noImplicitToStringOnTemplateStrings.ts(6,12): error TS18037: Implicit conversion of type 'string | undefined' to a string may be unintended. Consider wrapping this expression in 'String(...)'.
+
+
+==== tests/cases/compiler/noImplicitToStringOnTemplateStrings.ts (4 errors) ====
+    let object = {};
+    let maybeString = Math.random() > 0.5 ? "" : undefined;
+    let a = `${object}`;
+               ~~~~~~
+!!! error TS18037: Implicit conversion of type '{}' to a string may be unintended. Consider wrapping this expression in 'String(...)'.
+    let b = `${null}`;
+               ~~~~
+!!! error TS18037: Implicit conversion of type 'null' to a string may be unintended. Consider wrapping this expression in 'String(...)'.
+    let c = `${undefined}`;
+               ~~~~~~~~~
+!!! error TS18037: Implicit conversion of type 'undefined' to a string may be unintended. Consider wrapping this expression in 'String(...)'.
+    let d = `${maybeString}`;
+               ~~~~~~~~~~~
+!!! error TS18037: Implicit conversion of type 'string | undefined' to a string may be unintended. Consider wrapping this expression in 'String(...)'.
+    
+    // still ok...
+    let e = `${0}`;
+    
+    let f = `${Infinity}`;
+    let g = `${true}`;
+    let h = `${object.toString()}`;
+    let i = `${<any>object}`;
+    
+    

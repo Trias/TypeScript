@@ -1,0 +1,48 @@
+=== tests/cases/compiler/noImplicitToStringOnTemplateStrings.ts ===
+let object = {};
+>object : Symbol(object, Decl(noImplicitToStringOnTemplateStrings.ts, 0, 3))
+
+let maybeString = Math.random() > 0.5 ? "" : undefined;
+>maybeString : Symbol(maybeString, Decl(noImplicitToStringOnTemplateStrings.ts, 1, 3))
+>Math.random : Symbol(Math.random, Decl(lib.es5.d.ts, --, --))
+>Math : Symbol(Math, Decl(lib.es5.d.ts, --, --), Decl(lib.es5.d.ts, --, --))
+>random : Symbol(Math.random, Decl(lib.es5.d.ts, --, --))
+>undefined : Symbol(undefined)
+
+let a = `${object}`;
+>a : Symbol(a, Decl(noImplicitToStringOnTemplateStrings.ts, 2, 3))
+>object : Symbol(object, Decl(noImplicitToStringOnTemplateStrings.ts, 0, 3))
+
+let b = `${null}`;
+>b : Symbol(b, Decl(noImplicitToStringOnTemplateStrings.ts, 3, 3))
+
+let c = `${undefined}`;
+>c : Symbol(c, Decl(noImplicitToStringOnTemplateStrings.ts, 4, 3))
+>undefined : Symbol(undefined)
+
+let d = `${maybeString}`;
+>d : Symbol(d, Decl(noImplicitToStringOnTemplateStrings.ts, 5, 3))
+>maybeString : Symbol(maybeString, Decl(noImplicitToStringOnTemplateStrings.ts, 1, 3))
+
+// still ok...
+let e = `${0}`;
+>e : Symbol(e, Decl(noImplicitToStringOnTemplateStrings.ts, 8, 3))
+
+let f = `${Infinity}`;
+>f : Symbol(f, Decl(noImplicitToStringOnTemplateStrings.ts, 10, 3))
+>Infinity : Symbol(Infinity, Decl(lib.es5.d.ts, --, --))
+
+let g = `${true}`;
+>g : Symbol(g, Decl(noImplicitToStringOnTemplateStrings.ts, 11, 3))
+
+let h = `${object.toString()}`;
+>h : Symbol(h, Decl(noImplicitToStringOnTemplateStrings.ts, 12, 3))
+>object.toString : Symbol(Object.toString, Decl(lib.es5.d.ts, --, --))
+>object : Symbol(object, Decl(noImplicitToStringOnTemplateStrings.ts, 0, 3))
+>toString : Symbol(Object.toString, Decl(lib.es5.d.ts, --, --))
+
+let i = `${<any>object}`;
+>i : Symbol(i, Decl(noImplicitToStringOnTemplateStrings.ts, 13, 3))
+>object : Symbol(object, Decl(noImplicitToStringOnTemplateStrings.ts, 0, 3))
+
+

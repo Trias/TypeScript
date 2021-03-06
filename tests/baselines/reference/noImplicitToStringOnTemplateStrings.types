@@ -1,0 +1,68 @@
+=== tests/cases/compiler/noImplicitToStringOnTemplateStrings.ts ===
+let object = {};
+>object : {}
+>{} : {}
+
+let maybeString = Math.random() > 0.5 ? "" : undefined;
+>maybeString : string | undefined
+>Math.random() > 0.5 ? "" : undefined : "" | undefined
+>Math.random() > 0.5 : boolean
+>Math.random() : number
+>Math.random : () => number
+>Math : Math
+>random : () => number
+>0.5 : 0.5
+>"" : ""
+>undefined : undefined
+
+let a = `${object}`;
+>a : string
+>`${object}` : string
+>object : {}
+
+let b = `${null}`;
+>b : string
+>`${null}` : string
+>null : null
+
+let c = `${undefined}`;
+>c : string
+>`${undefined}` : string
+>undefined : undefined
+
+let d = `${maybeString}`;
+>d : string
+>`${maybeString}` : string
+>maybeString : string | undefined
+
+// still ok...
+let e = `${0}`;
+>e : string
+>`${0}` : string
+>0 : 0
+
+let f = `${Infinity}`;
+>f : string
+>`${Infinity}` : string
+>Infinity : number
+
+let g = `${true}`;
+>g : string
+>`${true}` : string
+>true : true
+
+let h = `${object.toString()}`;
+>h : string
+>`${object.toString()}` : string
+>object.toString() : string
+>object.toString : () => string
+>object : {}
+>toString : () => string
+
+let i = `${<any>object}`;
+>i : string
+>`${<any>object}` : string
+><any>object : any
+>object : {}
+
+

@@ -4983,6 +4983,10 @@
         "category": "Message",
         "code": 6800
     },
+    "Disallow implicit toString casts in string concatenation and template strings": {
+        "category": "Message",
+        "code": 6804
+    },
 
     "Variable '{0}' implicitly has an '{1}' type.": {
         "category": "Error",
@@ -6366,5 +6370,13 @@
     "Invalid value for 'jsxFragmentFactory'. '{0}' is not a valid identifier or qualified-name.": {
         "category": "Error",
         "code": 18035
+    },
+    "Implicit conversion to string may be unintended. Consider wrapping this expression in 'String(...)'.": {
+        "category": "Error",
+        "code": 18036
+    },
+    "Implicit conversion of type '{0}' to a string may be unintended. Consider wrapping this expression in 'String(...)'.": {
+        "category": "Error",
+        "code": 18037
     }
 }

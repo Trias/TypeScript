@@ -1,0 +1,45 @@
+=== tests/cases/compiler/noImplicitToStringOnStringConcatenation.ts ===
+function empty(){}
+>empty : Symbol(empty, Decl(noImplicitToStringOnStringConcatenation.ts, 0, 0))
+
+let a = "" + 0;
+>a : Symbol(a, Decl(noImplicitToStringOnStringConcatenation.ts, 2, 3))
+
+let b = {} + "";
+>b : Symbol(b, Decl(noImplicitToStringOnStringConcatenation.ts, 3, 3))
+
+let c = "a" + + "";
+>c : Symbol(c, Decl(noImplicitToStringOnStringConcatenation.ts, 4, 3))
+
+let d = false + "";
+>d : Symbol(d, Decl(noImplicitToStringOnStringConcatenation.ts, 5, 3))
+
+let e = null + "";
+>e : Symbol(e, Decl(noImplicitToStringOnStringConcatenation.ts, 6, 3))
+
+let f = undefined + "";
+>f : Symbol(f, Decl(noImplicitToStringOnStringConcatenation.ts, 7, 3))
+>undefined : Symbol(undefined)
+
+let g = empty() + "";
+>g : Symbol(g, Decl(noImplicitToStringOnStringConcatenation.ts, 8, 3))
+>empty : Symbol(empty, Decl(noImplicitToStringOnStringConcatenation.ts, 0, 0))
+
+// also an error
+let h = { toString(){return "fooo";} } + "";
+>h : Symbol(h, Decl(noImplicitToStringOnStringConcatenation.ts, 10, 3))
+>toString : Symbol(toString, Decl(noImplicitToStringOnStringConcatenation.ts, 10, 9))
+
+// not an error
+let i = String({}) + "";
+>i : Symbol(i, Decl(noImplicitToStringOnStringConcatenation.ts, 13, 3))
+>String : Symbol(String, Decl(lib.es5.d.ts, --, --), Decl(lib.es5.d.ts, --, --), Decl(lib.es5.d.ts, --, --))
+
+let j = ({}).toString() + "";
+>j : Symbol(j, Decl(noImplicitToStringOnStringConcatenation.ts, 14, 3))
+>({}).toString : Symbol(Object.toString, Decl(lib.es5.d.ts, --, --))
+>toString : Symbol(Object.toString, Decl(lib.es5.d.ts, --, --))
+
+let k = ({} as any) + "";
+>k : Symbol(k, Decl(noImplicitToStringOnStringConcatenation.ts, 15, 3))
+
